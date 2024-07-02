@@ -1,6 +1,8 @@
 import os
 
-restaurante = ['Pizza', 'Lasanha']
+restaurantes = [{'nome':'Comedere', 'categoria': 'Selve service', 'ativo': True},{
+                'nome':'Vem Que Tem', 'categoria': 'pizza', 'ativo': False},{
+                'nome':'La Carte', 'categoria': 'suchi', 'ativo': False }]
 
 def exibir_nome():
     print("""
@@ -31,14 +33,19 @@ def opcao_invalida():
 def cadastro_novo_restaurante():
     exibir_subtitulo('Cadastro de novo restaurante\n')    
     nome_do_restaurante = input("Digite o nome do restaurante: ")
-    restaurante.append(nome_do_restaurante)
+    categoria = input(f'Digite a categoria do restaurante {nome_do_restaurante}: ')
+    dados_do_restaurante = {'nome': nome_do_restaurante, 'categoria':categoria, 'ativo':False}
+    restaurantes.append(dados_do_restaurante)
     print(f'O restaurante {nome_do_restaurante} foi cadastrado com sucesso\n')
     voltar_menu_principal()
 
 def lista_restaurante():
     exibir_subtitulo('Listando restaurantes\n')    
-    for resta in restaurante:
-        print(resta)    
+    for restaurante in restaurantes:        
+        nome_restaurante = restaurante['nome']
+        categoria = restaurante['categoria']
+        ativo = restaurante['ativo']
+        print(f'{nome_restaurante}    |    {categoria}   |   {ativo}')
     voltar_menu_principal()
 
 
