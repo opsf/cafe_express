@@ -21,7 +21,10 @@ def voltar_menu_principal():
 
 def exibir_subtitulo(texto):
     os.system('cls')
+    letra = '*'*len(texto)
+    print(letra)
     print(texto)
+    print(letra)
 
 def finalizar_app():
     exibir_subtitulo('Encerrando o programa')
@@ -40,15 +43,29 @@ def cadastro_novo_restaurante():
     voltar_menu_principal()
 
 def lista_restaurante():
-    exibir_subtitulo('Listando restaurantes\n')    
+    exibir_subtitulo('Listando restaurantes')    
     for restaurante in restaurantes:        
         nome_restaurante = restaurante['nome']
         categoria = restaurante['categoria']
-        ativo = restaurante['ativo']
-        print(f'{nome_restaurante}    |    {categoria}   |   {ativo}')
+        ativo = 'ativado' if restaurante['ativo'] else 'desativado'
+        print(f'{nome_restaurante.ljust(20)}    |    {categoria.ljust(20)}   |   {ativo}')
     voltar_menu_principal()
 
+def mudando_estatus_restaurante():
+    exibir_subtitulo('Mudando estatus do restaurante\n')  
+    nome_restaurante = input('Nome do restaurante que deseja alterar o estatus: ')  
+    restaurante_encontrado = False
+    for restaurante in restaurantes:
+        if restaurante['nome']== nome_restaurante:
+            restaurante_encontrado=True
+            restaurante['ativo']= not restaurante['ativo']  
+            mensagem = f'O restaurante foi ativado com sucesso' if restaurante['ativo']==True else f'O restaurante foi desativado com sucesso'
+            print(mensagem)
+    
+    if restaurante_encontrado==False:
+        print(f'O restaurante {nome_restaurante} não está cadastrado')
 
+    voltar_menu_principal()
 
 def escolher_opcoes(): 
     try:   
@@ -58,7 +75,7 @@ def escolher_opcoes():
         elif opcao_escolhida==2:
             lista_restaurante()
         elif opcao_escolhida==3:
-            print('Ativar restaurante')
+            mudando_estatus_restaurante()
         elif opcao_escolhida==4:
             print('Encerrando o programa')
         else:
